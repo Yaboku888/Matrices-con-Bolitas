@@ -31,12 +31,12 @@ public class GamePeace : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            MoverPieza(new Vector3((int)transform.position.x, (int)transform.position.y , 0), tiempoDMV);
+            MoverPieza(new Vector3((int)transform.position.x+1, (int)transform.position.y , 0), tiempoDMV);
             Debug.Log("Derecha");
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            MoverPieza(new Vector3((int)transform.position.x, (int)transform.position.y , 0), tiempoDMV);
+            MoverPieza(new Vector3((int)transform.position.x-1, (int)transform.position.y , 0), tiempoDMV);
             Debug.Log("Izquierda");
         }
 
@@ -51,14 +51,14 @@ public class GamePeace : MonoBehaviour
 
     IEnumerator MovePiece(Vector3 posicionFinal, float tiempoMv)
     {
-        yaSeEjecuto = true;
-        bool llegoAlpunto = false;
+        yaSeEjecuto = false;
+        bool llegoAlpunto = true;
         Vector3 posicionInicial = new Vector3((int)transform.position.x, (int)transform.position.y, 0);
         float tiempoTranscurrido = 0;
 
         while (!llegoAlpunto)
         {
-            if (Vector3.Distance (posicionInicial, posicionFinal)<0.01f)
+            if (Vector3.Distance (transform.position, posicionFinal)<0.01f)
             {
                 llegoAlpunto = true;
                 yaSeEjecuto = true;
@@ -90,7 +90,7 @@ public class GamePeace : MonoBehaviour
                     break;
 
             }
-            tiempoMv += Time.deltaTime;
+            tiempoTranscurrido += Time.deltaTime;
             transform.position = Vector3.Lerp(posicionInicial, posicionFinal, t);
             yield return new WaitForEndOfFrame();
 

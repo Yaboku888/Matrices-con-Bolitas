@@ -345,8 +345,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 754ddc4441ee8f24181f7f676196e193, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alto: 10
-  ancho: 1
+  alto: 4
+  ancho: 4
+  borde: 90
   prefTile: {fileID: 1524800736171906973, guid: b9d883bf811ee2c4999d76f320ab0bd2, type: 3}
   cameraPlayer: {fileID: 963194227}
   prefpuntos:
@@ -358,6 +359,5 @@ MonoBehaviour:
   - {fileID: 998391445411168256, guid: 99ca3b5638956b24ea3a6ca84a64364d, type: 3}
   - {fileID: 998391445411168256, guid: 392837add99d1004cb456b2cea6afc6a, type: 3}
   - {fileID: 998391445411168256, guid: 557c092aec26cc24fb62a8c5465c3e5d, type: 3}
-  borde: 0
   inicial: {fileID: 0}
   Final: {fileID: 0}

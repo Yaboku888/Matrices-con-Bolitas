@@ -38,8 +38,8 @@ public class Cuboo : MonoBehaviour
                 board[i, j] = tile;
                 tile.g = this;
 
-                cameraPlayer.transform.localPosition = new Vector3(i / 2, j / 2, -1);
-                cameraPlayer.orthographicSize = (float)alto / 2;
+                cameraPlayer.transform.localPosition = new Vector3(i / 2f, j / 2f, -4);
+                //cameraPlayer.orthographicSize = (float)alto / 2;
 
             }
         }
@@ -99,7 +99,7 @@ public class Cuboo : MonoBehaviour
     {
         if (inicial != null)
         {
-            Final = fin;
+            this.Final = fin;
         }
     }
     public void ReleaseTile()
