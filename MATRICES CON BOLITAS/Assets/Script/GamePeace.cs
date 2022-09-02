@@ -22,18 +22,22 @@ public class GamePeace : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.UpArrow))
         {
             MoverPieza(new Vector3((int)transform.position.x,(int)transform.position.y +1, 0), tiempoDMV);
+            Debug.Log("Arriba");
         }
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             MoverPieza(new Vector3((int)transform.position.x, (int)transform.position.y  -1, 0), tiempoDMV);
+            Debug.Log("Abajo");
         }
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             MoverPieza(new Vector3((int)transform.position.x, (int)transform.position.y , 0), tiempoDMV);
+            Debug.Log("Derecha");
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             MoverPieza(new Vector3((int)transform.position.x, (int)transform.position.y , 0), tiempoDMV);
+            Debug.Log("Izquierda");
         }
 
         //transform.position = Vector3.Lerp(startpos, endpos, t);
@@ -47,9 +51,9 @@ public class GamePeace : MonoBehaviour
 
     IEnumerator MovePiece(Vector3 posicionFinal, float tiempoMv)
     {
-        yaSeEjecuto = false;
+        yaSeEjecuto = true;
         bool llegoAlpunto = false;
-        Vector3 posicionInicial = transform.position;
+        Vector3 posicionInicial = new Vector3((int)transform.position.x, (int)transform.position.y, 0);
         float tiempoTranscurrido = 0;
 
         while (!llegoAlpunto)
@@ -97,7 +101,7 @@ public class GamePeace : MonoBehaviour
     }  
             void MoverPieza(Vector3 posicionFinal, float tiempoMv)
             {
-                if (yaSeEjecuto ==true)
+                if (!yaSeEjecuto )
                 {
                     StartCoroutine(MovePiece(posicionFinal, tiempoMv));
                 }

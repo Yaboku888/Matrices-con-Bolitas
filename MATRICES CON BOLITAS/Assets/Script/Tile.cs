@@ -8,7 +8,7 @@ public class Tile : MonoBehaviour
     Tile final;
     public int indicex;
     public int indicey;
-    Cuboo g;
+   public Cuboo g;
 
 
     public  void inicialization (int x, int y)

@@ -5,15 +5,16 @@ using UnityEngine;
 public class Cuboo : MonoBehaviour
 {
     public int alto;
-    public int ancho;
+    public int ancho; 
+    public float borde;
     public Tile[,] board;
-    public GameObject perfile;
+    public GameObject prefTile;
     public Camera cameraPlayer;
     public GameObject[] prefpuntos;
     public GamePeace[,] pieza;
-    public float borde;
-    Tile inicial;
-    Tile Final;
+   
+    public Tile inicial;
+    public Tile Final;
     void Start()
     {
         llenarMatriz();
@@ -29,12 +30,13 @@ public class Cuboo : MonoBehaviour
         {
             for (int j = 0; j < alto; j++) //j para y
             {
-                GameObject go = Instantiate(perfile);
+                GameObject go = Instantiate(prefTile);
                 go.name = "Tile(" + i + ", " + j + ")";
                 go.transform.position = new Vector3(i, j, 0);
                 Tile tile = go.GetComponent<Tile>();
                 tile.inicialization(i, j);
                 board[i, j] = tile;
+                tile.g = this;
 
                 cameraPlayer.transform.localPosition = new Vector3(i / 2, j / 2, -1);
                 cameraPlayer.orthographicSize = (float)alto / 2;
@@ -102,11 +104,19 @@ public class Cuboo : MonoBehaviour
     }
     public void ReleaseTile()
     {
-        if(inicial!=null&&Final!=null)
+        if(inicial != null && Final != null)
         {
-            inicial = null;
-            Final = null;
+            cambioPieza(inicial, Final);
+            //inicial = null;
+            //Final = null;
         }
+    }
+
+
+    void cambioPieza(Tile initi, Tile and)
+    {
+        GamePeace Goin = pieza[initi.indicex, initi.indicey];
+        GamePeace GoEnd = pieza[and.indicex, and.indicey];
     }
 }
 
