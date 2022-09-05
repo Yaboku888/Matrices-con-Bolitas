@@ -4,64 +4,37 @@ using UnityEngine;
 
 public class GamePeace : MonoBehaviour
 {
-    public int indicex;
-    public int indicey;
+    public int indiceX;
+    public int indiceY;
     public float tiempoDMV;
 
 
-    public bool yaSeEjecuto = true;
+    public bool enmovimiento = false;
     public TipoInterpolacion tipoDeInterpolo;
     public AnimationCurve curve;
-    //Vector3 startpos;
-    //Vector3 endpos;
-    //[Range(0f, 1f)] float t;
-   
-   
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            MoverPieza(new Vector3((int)transform.position.x,(int)transform.position.y +1, 0), tiempoDMV);
-            Debug.Log("Arriba");
-        }
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            MoverPieza(new Vector3((int)transform.position.x, (int)transform.position.y  -1, 0), tiempoDMV);
-            Debug.Log("Abajo");
-        }
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            MoverPieza(new Vector3((int)transform.position.x+1, (int)transform.position.y , 0), tiempoDMV);
-            Debug.Log("Derecha");
-        }
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            MoverPieza(new Vector3((int)transform.position.x-1, (int)transform.position.y , 0), tiempoDMV);
-            Debug.Log("Izquierda");
-        }
+    public Cuboo board;
 
-        //transform.position = Vector3.Lerp(startpos, endpos, t);
+
+    public void cordenadas (int x, int y)
+    {
+        indiceX = x;
+        indiceY = y;
     }
 
-    public void Inicializar(int x, int y)
+    IEnumerator MovePiece (Vector3 posicionFinal, float tiempoMv)
     {
-        indicex = x;
-        indicey = y;
-    }
-
-    IEnumerator MovePiece(Vector3 posicionFinal, float tiempoMv)
-    {
-        yaSeEjecuto = false;
-        bool llegoAlpunto = true;
+        enmovimiento = true;
+        bool llegoAlpunto = false;
         Vector3 posicionInicial = new Vector3((int)transform.position.x, (int)transform.position.y, 0);
         float tiempoTranscurrido = 0;
 
         while (!llegoAlpunto)
         {
-            if (Vector3.Distance (transform.position, posicionFinal)<0.01f)
+            if (Vector3.Distance(transform.position, posicionFinal) < 0.01f)
             {
+                enmovimiento = false;
                 llegoAlpunto = true;
-                yaSeEjecuto = true;
+                board.UbicarPieza(this, (int)posicionFinal.x, (int)posicionFinal.y);
                 transform.position = new Vector3((int)posicionFinal.x, (int)posicionFinal.y, 0);
                 break;
             }
@@ -74,7 +47,7 @@ public class GamePeace : MonoBehaviour
                     break;
 
                 case TipoInterpolacion.Salida:
-                    t = 1- Mathf.Cos(t * Mathf.PI * .5f);
+                    t = 1 - Mathf.Cos(t * Mathf.PI * .5f);
                     break;
 
                 case TipoInterpolacion.Entrada:
@@ -88,25 +61,22 @@ public class GamePeace : MonoBehaviour
                 case TipoInterpolacion.MasSuavisado:
                     t = t * t * t * (t * (t * 6 - 15) + 10);
                     break;
-
             }
             tiempoTranscurrido += Time.deltaTime;
             transform.position = Vector3.Lerp(posicionInicial, posicionFinal, t);
             yield return new WaitForEndOfFrame();
-
-
-         
         }
+            
 
-    }  
-            void MoverPieza(Vector3 posicionFinal, float tiempoMv)
-            {
-                if (!yaSeEjecuto )
-                {
-                    StartCoroutine(MovePiece(posicionFinal, tiempoMv));
-                }
-            }
-        
+    }
+    public void MoverPieza(int x, int y, float tiempoMOV)
+    {
+        if (!enmovimiento)
+        {
+            StartCoroutine(MovePiece(new Vector3(x, y), tiempoMOV));
+        }
+    }
+
     public enum TipoInterpolacion
     {
         Lineal,
@@ -115,7 +85,5 @@ public class GamePeace : MonoBehaviour
         Suavisado,
         MasSuavisado
     }
-
-
 }
 

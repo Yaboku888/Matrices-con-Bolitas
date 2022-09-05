@@ -6,31 +6,31 @@ public class Tile : MonoBehaviour
 {
     Tile incial;
     Tile final;
-    public int indicex;
-    public int indicey;
-   public Cuboo g;
+    public int indiceX;
+    public int indiceY;
+   public Cuboo board;
 
 
-    public  void inicialization (int x, int y)
+    public  void Inicializar (int x, int y)
     {
-        indicex = x;
-        indicey = y;
+        indiceX = x;
+        indiceY = y;
     }
 
 
     private void OnMouseDown()
     {
-        g.SetInicialMause(this);
+       board.SetInicialMause(this);
     }
 
     private void OnMouseEnter()
     {
-        g.SetFinalTile(this);
+        board.SetFinalTile(this);
     }
 
     private void OnMouseUp()
     {
-        g.ReleaseTile();
+        board.ReleaseTile();
     }
 
 

@@ -7,11 +7,11 @@ public class Cuboo : MonoBehaviour
     public int alto;
     public int ancho; 
     public float borde;
-    public Tile[,] board;
     public GameObject prefTile;
     public Camera cameraPlayer;
     public GameObject[] prefpuntos;
-    public GamePeace[,] pieza;
+    public GamePeace[,] gamePiece;
+    public Tile[,] board;
    
     public Tile inicial;
     public Tile Final;
@@ -26,21 +26,22 @@ public class Cuboo : MonoBehaviour
     {
         board = new Tile[ancho, alto];
 
-        for (int i = 0; i < ancho; i++) //i para x
+        for (int i = 0; i< ancho; i++)
         {
-            for (int j = 0; j < alto; j++) //j para y
+            for (int j= 0; j < alto; j++)
             {
                 GameObject go = Instantiate(prefTile);
-                go.name = "Tile(" + i + ", " + j + ")";
+                go.name = "Tile(" + i + "," + j + ")";
                 go.transform.position = new Vector3(i, j, 0);
+                go.transform.parent = transform;
+
                 Tile tile = go.GetComponent<Tile>();
-                tile.inicialization(i, j);
+                tile.board = this;
+                tile.Inicializar(i, j);
                 board[i, j] = tile;
-                tile.g = this;
 
-                cameraPlayer.transform.localPosition = new Vector3(i / 2f, j / 2f, -4);
-                //cameraPlayer.orthographicSize = (float)alto / 2;
 
+                cameraPlayer.transform.localPosition = new Vector3(i / 2f, j / 2f, -5);
             }
         }
     }
@@ -67,22 +68,31 @@ public class Cuboo : MonoBehaviour
     {
         int numeroA = Random.Range(0, prefpuntos.Length);
         GameObject go = Instantiate(prefpuntos[numeroA]);
+        go.GetComponent<GamePeace>().board = this;
         return go;
     }
 
-    void UbicarPieza(GamePeace gp, int x, int y)
+   public void UbicarPieza(GamePeace gp, int x, int y)
     {
-        gp.Inicializar(x, y);
+        gp.transform.position = new Vector3(x, y, 0f);
+        gp.cordenadas(x, y);
+        gamePiece[x, y] = gp;
     }
 
     void llenarMatriz()
     {
+        gamePiece = new GamePeace[ancho, alto];
         for (int i = 0; i < ancho; i++)
         {
             for (int g = 0; g < alto; g++)
             {
                 GameObject go = PiezaAleatoria();
-                go.transform.position = new Vector3(i, g, 0f);
+                UbicarPieza(go.GetComponent<GamePeace>(), i, g);
+                go.transform.parent = transform;
+                go.name = "Gamep(" + i + "," + g + ")";
+
+                GamePeace ga = go.GetComponent<GamePeace>();
+                ga.cordenadas(i, g);
             }
         }
     }
@@ -91,7 +101,7 @@ public class Cuboo : MonoBehaviour
     {
         if (inicial = null)
         {
-            inicial = ini;
+            this.inicial = ini;
         }
 
     }
@@ -107,16 +117,19 @@ public class Cuboo : MonoBehaviour
         if(inicial != null && Final != null)
         {
             cambioPieza(inicial, Final);
-            //inicial = null;
-            //Final = null;
+            inicial = null;
+            Final = null;
         }
     }
 
 
     void cambioPieza(Tile initi, Tile and)
     {
-        GamePeace Goin = pieza[initi.indicex, initi.indicey];
-        GamePeace GoEnd = pieza[and.indicex, and.indicey];
+        GamePeace Goin = gamePiece[initi.indiceX, initi.indiceY];
+        GamePeace GoEnd = gamePiece[and.indiceX, and.indiceY];
+
+        Goin.MoverPieza(and.indiceX, and.indiceY, 1f);
+        GoEnd.MoverPieza(initi.indiceX, initi.indiceY, 1f);
     }
 }
 
