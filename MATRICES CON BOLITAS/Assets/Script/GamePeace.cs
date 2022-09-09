@@ -4,32 +4,58 @@ using UnityEngine;
 
 public class GamePeace : MonoBehaviour
 {
+    // Start is called before the first frame update
     public int indiceX;
     public int indiceY;
     public float tiempoDMV;
 
-
     public bool enmovimiento = false;
     public TipoInterpolacion tipoDeInterpolo;
+    public TipoFicha TipoFicha_;
     public AnimationCurve curve;
     public Cuboo board;
+    /*void Update()
+    {
+       /* if(Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            MoverPieza(new Vector3((int)transform.position.x,(int)transform.position.y +1,0), tiempoDMV);
+            Debug.Log("arriba");
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            MoverPieza(new Vector3((int)transform.position.x, (int)transform.position.y -1, 0), tiempoDMV);
+            Debug.Log("Abajo");
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            MoverPieza(new Vector3((int)transform.position.x+1, (int)transform.position.y , 0), tiempoDMV);
+            Debug.Log("derecha");
+
+        }
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            MoverPieza(new Vector3((int)transform.position.x-1, (int)transform.position.y , 0), tiempoDMV);
+            Debug.Log("Izquierda");
+        }*/
 
 
-    public void cordenadas (int x, int y)
+
+    public void cordenadas(int x, int y)
     {
         indiceX = x;
         indiceY = y;
     }
 
-    IEnumerator MovePiece (Vector3 posicionFinal, float tiempoMv)
+    IEnumerator MovePiece(Vector3 posicionFinal, float tiempoMv)
     {
         enmovimiento = true;
         bool llegoAlpunto = false;
         Vector3 posicionInicial = new Vector3((int)transform.position.x, (int)transform.position.y, 0);
-        float tiempoTranscurrido = 0;
+        float tiempoTrascurrido = 0;
 
         while (!llegoAlpunto)
         {
+
             if (Vector3.Distance(transform.position, posicionFinal) < 0.01f)
             {
                 enmovimiento = false;
@@ -38,7 +64,7 @@ public class GamePeace : MonoBehaviour
                 transform.position = new Vector3((int)posicionFinal.x, (int)posicionFinal.y, 0);
                 break;
             }
-            float t = tiempoTranscurrido / tiempoMv;
+            float t = tiempoTrascurrido / tiempoMv;
 
             switch (tipoDeInterpolo)
             {
@@ -62,13 +88,12 @@ public class GamePeace : MonoBehaviour
                     t = t * t * t * (t * (t * 6 - 15) + 10);
                     break;
             }
-            tiempoTranscurrido += Time.deltaTime;
+            tiempoTrascurrido += Time.deltaTime;
             transform.position = Vector3.Lerp(posicionInicial, posicionFinal, t);
             yield return new WaitForEndOfFrame();
         }
-            
-
     }
+
     public void MoverPieza(int x, int y, float tiempoMOV)
     {
         if (!enmovimiento)
@@ -85,5 +110,20 @@ public class GamePeace : MonoBehaviour
         Suavisado,
         MasSuavisado
     }
+
+    public enum TipoFicha
+    {
+        Verde,
+        Amarillo,
+        Cafe,
+        Azul,
+        Gris,
+        verdeOsucro,
+        rosado,
+        rojo
+    }
+
+
 }
+
 
