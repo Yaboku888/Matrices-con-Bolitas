@@ -5,31 +5,37 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     // Start is called before the first frame update
-    public int indiceX;
     public int indiceY;
+    public int indiceX;
+
     public Cuboo board;
+
 
     private void Start()
     {
 
     }
-    public void Inicializar(int x, int y)
+
+    public void Inicio(int cambioX, int cambioY)
     {
-        indiceX = x;
-        indiceY = y;
+        indiceX = cambioX;
+        indiceY = cambioY;
     }
-    public void OnMouseDown()
+
+    private void OnMouseDown()
     {
-        board.SetInicialTile(this);
+        board.SetInicialMouse(this);
     }
-    public void OnMouseEnter()
+
+    private void OnMouseEnter()
     {
-        board.SetFinalTile(this);
+        board.SetEndMouse(this);
     }
-    public void OnMouseUp()
+
+    private void OnMouseUp()
     {
         board.ReleaseTile();
-
     }
+
 }
 

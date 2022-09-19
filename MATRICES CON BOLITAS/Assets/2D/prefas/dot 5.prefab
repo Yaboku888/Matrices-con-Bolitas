@@ -74,12 +74,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 669fdcdab9e25e243b3f732f39ec5d87, type: 3}
-  m_Color: {r: 0.98383784, g: 1, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 74a7dbacdd1564446806ddce21ff9ddc, type: 3}
+  m_Color: {r: 0.98383784, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -97,11 +97,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dd81ab444103a34388cbab72af16d3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  indicex: 0
-  indicey: 0
-  tiempoDMV: 0.5
-  yaSeEjecuto: 1
+  cordenadaX: 0
+  cordinadaY: 0
+  tiempoDeMovimiento: 0
+  enMovimiento: 0
   tipoDeInterpolo: 0
+  tipoFicha: 4
   curve:
     serializedVersion: 2
     m_Curve:
@@ -126,3 +127,4 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  board: {fileID: 0}
