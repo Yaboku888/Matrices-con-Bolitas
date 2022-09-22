@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using TMPro;
 
 public class Cuboo : MonoBehaviour
 {
-    // Start is called before the first frame update
-
+    
+    public TextMeshProUGUI scorep, timep;
     public int alto;
     public int ancho;
     public Tile[,] board;
@@ -65,7 +66,7 @@ public class Cuboo : MonoBehaviour
 
     void OrganizaCamara()
     {
-        cam.transform.position = new Vector3((float)ancho / 2 - .5f, (float)alto / 2 - .5f, -10);
+        cam.transform.position = new Vector3((float)ancho / 2 - .5f, (float)alto / 2 - .5f, -7);
 
         float a = ((float)alto / 2) + bordeCam;
         float an = ((float)ancho / 2 + bordeCam) / ((float)Screen.width / (float)Screen.height);
